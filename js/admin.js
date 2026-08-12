@@ -3,20 +3,22 @@
 
   const PRODUCT_KEY = 'lm_products_v1';
   const CART_KEY = 'lm_cart_v1';
+  const AUTH_KEY = 'lm_admin_auth_v1';
+  const ADMIN_HASH = '90954678cb274dbe709dffaea8d806a5be7bf0bb5c4458a9fdf9d2329f463b24';
 
   const seedProducts = [
-    { id: 'PF001', name: 'Essência Dourada 100 ml', category: 'perfumes', description: 'Fragrância elegante com notas quentes e acabamento sofisticado.', price: 1850, stock: 12, unit: 'un', active: true, featured: 1 },
-    { id: 'PF002', name: 'Brisa Noturna 100 ml', category: 'perfumes', description: 'Perfume intenso e moderno para noite e ocasiões especiais.', price: 2200, stock: 8, unit: 'un', active: true, featured: 2 },
-    { id: 'PF003', name: 'Rosa Imperial 50 ml', category: 'perfumes', description: 'Aroma floral suave, leve e marcante.', price: 1350, stock: 15, unit: 'un', active: true, featured: 3 },
-    { id: 'CR001', name: 'Creme Karité Nutritivo', category: 'cremes', description: 'Creme corporal hidratante com toque macio.', price: 500, stock: 24, unit: 'un', active: true, featured: 4 },
-    { id: 'CR002', name: 'Body Cream Coco 250 ml', category: 'cremes', description: 'Hidratação diária com aroma suave de coco.', price: 650, stock: 18, unit: 'un', active: true, featured: 5 },
-    { id: 'CR003', name: 'Creme Facial Aloe 100 ml', category: 'cremes', description: 'Textura leve para rotina de cuidado facial.', price: 450, stock: 20, unit: 'un', active: true, featured: 6 },
-    { id: 'AC001', name: 'Capa Silicone Premium', category: 'acessorios', description: 'Proteção leve com acabamento macio e boa aderência.', price: 350, stock: 30, unit: 'un', active: true, featured: 7 },
-    { id: 'AC002', name: 'Carregador USB-C 20W', category: 'acessorios', description: 'Carregamento rápido para aparelhos compatíveis.', price: 900, stock: 16, unit: 'un', active: true, featured: 8 },
-    { id: 'AC003', name: 'Fones Bluetooth Air', category: 'acessorios', description: 'Áudio sem fios com estojo de carregamento.', price: 1500, stock: 11, unit: 'un', active: true, featured: 9 },
-    { id: 'CL001', name: 'Smart X1 128 GB', category: 'celulares', description: 'Smartphone 4G, 128 GB, ecrã amplo e bateria para o dia inteiro.', price: 8990, stock: 7, unit: 'un', active: true, featured: 10 },
-    { id: 'CL002', name: 'Smart Pro 256 GB', category: 'celulares', description: 'Modelo de demonstração com mais memória e desempenho.', price: 14990, stock: 4, unit: 'un', active: true, featured: 11 },
-    { id: 'CL003', name: 'Smart Mini 64 GB', category: 'celulares', description: 'Opção compacta e económica para chamadas, apps e internet.', price: 5990, stock: 9, unit: 'un', active: true, featured: 12 }
+    { id: 'PF001', name: 'Essência Dourada 100 ml', category: 'perfumes', description: 'Fragrância elegante com notas quentes e acabamento sofisticado.', price: 1850, stock: 12, unit: 'un', active: true, featured: 1, image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=80' },
+    { id: 'PF002', name: 'Brisa Noturna 100 ml', category: 'perfumes', description: 'Perfume intenso e moderno para noite e ocasiões especiais.', price: 2200, stock: 8, unit: 'un', active: true, featured: 2, image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=900&q=80' },
+    { id: 'PF003', name: 'Rosa Imperial 50 ml', category: 'perfumes', description: 'Aroma floral suave, leve e marcante.', price: 1350, stock: 15, unit: 'un', active: true, featured: 3, image: 'https://images.unsplash.com/photo-1619994403073-2cec844b8e63?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CR001', name: 'Creme Karité Nutritivo', category: 'cremes', description: 'Creme corporal hidratante com toque macio.', price: 500, stock: 24, unit: 'un', active: true, featured: 4, image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CR002', name: 'Body Cream Coco 250 ml', category: 'cremes', description: 'Hidratação diária com aroma suave de coco.', price: 650, stock: 18, unit: 'un', active: true, featured: 5, image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CR003', name: 'Creme Facial Aloe 100 ml', category: 'cremes', description: 'Textura leve para rotina de cuidado facial.', price: 450, stock: 20, unit: 'un', active: true, featured: 6, image: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?auto=format&fit=crop&w=900&q=80' },
+    { id: 'AC001', name: 'Capa Silicone Premium', category: 'acessorios', description: 'Proteção leve com acabamento macio e boa aderência.', price: 350, stock: 30, unit: 'un', active: true, featured: 7, image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80' },
+    { id: 'AC002', name: 'Carregador USB-C 20W', category: 'acessorios', description: 'Carregamento rápido para aparelhos compatíveis.', price: 900, stock: 16, unit: 'un', active: true, featured: 8, image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=80' },
+    { id: 'AC003', name: 'Fones Bluetooth Air', category: 'acessorios', description: 'Áudio sem fios com estojo de carregamento.', price: 1500, stock: 11, unit: 'un', active: true, featured: 9, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CL001', name: 'Smart X1 128 GB', category: 'celulares', description: 'Smartphone 4G, 128 GB, ecrã amplo e bateria para o dia inteiro.', price: 8990, stock: 7, unit: 'un', active: true, featured: 10, image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CL002', name: 'Smart Pro 256 GB', category: 'celulares', description: 'Modelo de demonstração com mais memória e desempenho.', price: 14990, stock: 4, unit: 'un', active: true, featured: 11, image: 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&fit=crop&w=900&q=80' },
+    { id: 'CL003', name: 'Smart Mini 64 GB', category: 'celulares', description: 'Opção compacta e económica para chamadas, apps e internet.', price: 5990, stock: 9, unit: 'un', active: true, featured: 12, image: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=900&q=80' }
   ];
 
   const categoryNames = {
@@ -28,6 +30,7 @@
 
   let products = [];
   let toastTimer;
+  let appStarted = false;
   const $ = (id) => document.getElementById(id);
 
   function readJson(key, fallback) {
@@ -43,12 +46,60 @@
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  async function sha256(value) {
+    const bytes = new TextEncoder().encode(value);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function submitLogin(event) {
+    event.preventDefault();
+    const code = $('adminCode').value;
+    const hash = await sha256(code);
+    if (hash !== ADMIN_HASH) {
+      $('loginError').classList.remove('hidden');
+      $('adminCode').select();
+      return;
+    }
+    sessionStorage.setItem(AUTH_KEY, '1');
+    $('loginError').classList.add('hidden');
+    $('adminCode').value = '';
+    startApp();
+  }
+
+  function logout() {
+    sessionStorage.removeItem(AUTH_KEY);
+    window.location.reload();
+  }
+
+  function startApp() {
+    $('adminLock').classList.add('hidden');
+    $('adminApp').classList.remove('hidden');
+    if (appStarted) return;
+    appStarted = true;
+    ensureProducts();
+    renderAll();
+    bindEvents();
+  }
+
   function ensureProducts() {
     const data = readJson(PRODUCT_KEY, null);
     if (!Array.isArray(data) || !data.length) {
       products = JSON.parse(JSON.stringify(seedProducts));
       writeJson(PRODUCT_KEY, products);
-    } else products = data;
+      return;
+    }
+
+    let changed = false;
+    products = data.map((product) => {
+      const seed = seedProducts.find((item) => item.id === product.id);
+      if (!product.image && seed?.image) {
+        changed = true;
+        return { ...product, image: seed.image };
+      }
+      return product;
+    });
+    if (changed) writeJson(PRODUCT_KEY, products);
   }
 
   function money(value) {
@@ -130,6 +181,7 @@
     $('originalId').value = '';
     $('productId').value = suggestId('perfumes');
     $('category').value = 'perfumes';
+    $('image').value = '';
     $('unit').value = 'un';
     $('featured').value = String(products.length + 1);
     $('active').checked = true;
@@ -158,6 +210,7 @@
     $('category').value = p.category;
     $('name').value = p.name;
     $('description').value = p.description || '';
+    $('image').value = p.image || '';
     $('price').value = Number(p.price) || 0;
     $('stock').value = Number(p.stock) || 0;
     $('unit').value = p.unit || 'un';
@@ -182,6 +235,7 @@
       name,
       category: $('category').value,
       description: $('description').value.trim(),
+      image: $('image').value.trim(),
       price,
       stock,
       unit: $('unit').value.trim() || 'un',
@@ -221,7 +275,7 @@
   }
 
   function resetDemo() {
-    if (!window.confirm('Restaurar os produtos e preços de demonstração? As alterações locais serão substituídas.')) return;
+    if (!window.confirm('Restaurar os produtos, preços e imagens de demonstração? As alterações locais serão substituídas.')) return;
     products = JSON.parse(JSON.stringify(seedProducts));
     writeJson(CART_KEY, []);
     saveProducts('Demonstração restaurada.');
@@ -238,6 +292,7 @@
   function bindEvents() {
     $('newProductBtn').addEventListener('click', openNew);
     $('resetBtn').addEventListener('click', resetDemo);
+    $('logoutBtn').addEventListener('click', logout);
     $('searchInput').addEventListener('input', renderRows);
     $('productForm').addEventListener('submit', submitProduct);
     $('closeModalBtn').addEventListener('click', closeModal);
@@ -256,8 +311,8 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    ensureProducts();
-    renderAll();
-    bindEvents();
+    $('loginForm').addEventListener('submit', submitLogin);
+    if (sessionStorage.getItem(AUTH_KEY) === '1') startApp();
+    else setTimeout(() => $('adminCode').focus(), 50);
   });
 })();
