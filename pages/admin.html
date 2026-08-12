@@ -5,94 +5,116 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel — Lenda Motivação Store</title>
   <link rel="stylesheet" href="../css/admin.css" />
+  <link rel="stylesheet" href="../css/admin-lock.css" />
 </head>
 <body>
-  <header class="admin-header">
-    <div class="container header-inner">
-      <a class="brand" href="../index.html"><span>LM</span><strong>Lenda Motivação</strong></a>
-      <div class="header-actions">
-        <a class="ghost-btn" href="../index.html">← Ver loja</a>
-        <button class="danger-link" id="resetBtn" type="button">Restaurar demonstração</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="container admin-main">
-    <section class="intro">
-      <div>
-        <span class="eyebrow">Painel local</span>
-        <h1>Produtos da loja</h1>
-        <p>As alterações ficam guardadas neste navegador e aparecem imediatamente na vitrine.</p>
-      </div>
-      <button class="primary-btn" id="newProductBtn" type="button">+ Novo produto</button>
-    </section>
-
-    <section class="stats" id="stats"></section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <div>
-          <span class="eyebrow">Catálogo</span>
-          <h2>Gerir produtos</h2>
-        </div>
-        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Pesquisar por nome ou ID..." /></label>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Produto</th>
-              <th>Categoria</th>
-              <th>Preço</th>
-              <th>Stock</th>
-              <th>Estado</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="productRows"></tbody>
-        </table>
-      </div>
-      <div class="empty hidden" id="emptyState">Nenhum produto encontrado.</div>
-    </section>
-  </main>
-
-  <div class="modal-overlay" id="modalOverlay">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
-      <div class="modal-head">
-        <div><span class="eyebrow">Produto</span><h2 id="formTitle">Novo produto</h2></div>
-        <button class="close-btn" id="closeModalBtn" type="button">×</button>
-      </div>
-
-      <form id="productForm">
-        <input type="hidden" id="originalId" />
-        <div class="form-grid">
-          <label>ID do produto<input id="productId" required maxlength="20" placeholder="Ex.: PF004" /></label>
-          <label>Categoria
-            <select id="category" required>
-              <option value="perfumes">Perfumes</option>
-              <option value="cremes">Cremes</option>
-              <option value="acessorios">Acessórios</option>
-              <option value="celulares">Celulares</option>
-            </select>
-          </label>
-          <label class="span-2">Nome<input id="name" required maxlength="100" placeholder="Nome do produto" /></label>
-          <label class="span-2">Descrição<textarea id="description" rows="3" maxlength="240" placeholder="Descrição curta para a vitrine"></textarea></label>
-          <label>Preço (MT)<input id="price" type="number" min="0" step="1" required /></label>
-          <label>Stock<input id="stock" type="number" min="0" step="1" required /></label>
-          <label>Unidade<input id="unit" value="un" maxlength="10" /></label>
-          <label>Destaque/ordem<input id="featured" type="number" min="1" step="1" value="99" /></label>
-        </div>
-        <label class="switch-row"><input id="active" type="checkbox" checked /><span>Produto visível na loja</span></label>
-        <div class="form-actions">
-          <button class="ghost-btn" id="cancelBtn" type="button">Cancelar</button>
-          <button class="primary-btn" type="submit">Guardar produto</button>
-        </div>
+  <section class="admin-lock" id="adminLock" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <div class="login-brand">LM</div>
+      <span class="eyebrow">Área reservada</span>
+      <h1 id="loginTitle">Painel administrativo</h1>
+      <p>Introduza o código de acesso para gerir produtos, preços, imagens e stock.</p>
+      <form id="loginForm" class="login-form">
+        <label for="adminCode">Código de acesso</label>
+        <input id="adminCode" type="password" autocomplete="current-password" placeholder="Digite o código" required />
+        <div class="login-error hidden" id="loginError">Código incorreto.</div>
+        <button class="primary-btn" type="submit">Entrar no painel</button>
+        <a class="ghost-btn" href="../index.html">← Voltar à loja</a>
       </form>
-    </section>
+    </div>
+  </section>
+
+  <div id="adminApp" class="hidden">
+    <header class="admin-header">
+      <div class="container header-inner">
+        <a class="brand" href="../index.html"><span>LM</span><strong>Lenda Motivação</strong></a>
+        <div class="header-actions">
+          <a class="ghost-btn" href="../index.html">← Ver loja</a>
+          <button class="ghost-btn" id="logoutBtn" type="button">Sair</button>
+          <button class="danger-link" id="resetBtn" type="button">Restaurar demonstração</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container admin-main">
+      <section class="intro">
+        <div>
+          <span class="eyebrow">Painel local</span>
+          <h1>Produtos da loja</h1>
+          <p>As alterações ficam guardadas neste navegador e aparecem imediatamente na vitrine.</p>
+        </div>
+        <button class="primary-btn" id="newProductBtn" type="button">+ Novo produto</button>
+      </section>
+
+      <section class="stats" id="stats"></section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <span class="eyebrow">Catálogo</span>
+            <h2>Gerir produtos</h2>
+          </div>
+          <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Pesquisar por nome ou ID..." /></label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Preço</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="productRows"></tbody>
+          </table>
+        </div>
+        <div class="empty hidden" id="emptyState">Nenhum produto encontrado.</div>
+      </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+        <div class="modal-head">
+          <div><span class="eyebrow">Produto</span><h2 id="formTitle">Novo produto</h2></div>
+          <button class="close-btn" id="closeModalBtn" type="button">×</button>
+        </div>
+
+        <form id="productForm">
+          <input type="hidden" id="originalId" />
+          <div class="form-grid">
+            <label>ID do produto<input id="productId" required maxlength="20" placeholder="Ex.: PF004" /></label>
+            <label>Categoria
+              <select id="category" required>
+                <option value="perfumes">Perfumes</option>
+                <option value="cremes">Cremes</option>
+                <option value="acessorios">Acessórios</option>
+                <option value="celulares">Celulares</option>
+              </select>
+            </label>
+            <label class="span-2">Nome<input id="name" required maxlength="100" placeholder="Nome do produto" /></label>
+            <label class="span-2">Descrição<textarea id="description" rows="3" maxlength="240" placeholder="Descrição curta para a vitrine"></textarea></label>
+            <label class="span-2">Imagem real (URL)<input id="image" type="url" placeholder="https://..." /></label>
+            <label>Preço (MT)<input id="price" type="number" min="0" step="1" required /></label>
+            <label>Stock<input id="stock" type="number" min="0" step="1" required /></label>
+            <label>Unidade<input id="unit" value="un" maxlength="10" /></label>
+            <label>Destaque/ordem<input id="featured" type="number" min="1" step="1" value="99" /></label>
+          </div>
+          <label class="switch-row"><input id="active" type="checkbox" checked /><span>Produto visível na loja</span></label>
+          <div class="form-actions">
+            <button class="ghost-btn" id="cancelBtn" type="button">Cancelar</button>
+            <button class="primary-btn" type="submit">Guardar produto</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="toast" id="toast"></div>
   </div>
 
-  <div class="toast" id="toast"></div>
   <script src="../js/admin.js"></script>
 </body>
 </html>
