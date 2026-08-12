@@ -1,0 +1,70 @@
+name: Validate Store
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check js/store.js
+          node --check js/admin.js
+
+      - name: Check required files and local references
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          required = [
+              Path('index.html'),
+              Path('css/style.css'),
+              Path('css/patch.css'),
+              Path('css/admin.css'),
+              Path('js/store.js'),
+              Path('js/admin.js'),
+              Path('pages/admin.html'),
+          ]
+          missing = [str(p) for p in required if not p.exists()]
+          if missing:
+              raise SystemExit('Missing required files: ' + ', '.join(missing))
+
+          class RefParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.refs = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  for key in ('href', 'src'):
+                      if key in attrs:
+                          self.refs.append(attrs[key])
+
+          for html in [Path('index.html'), Path('pages/admin.html')]:
+              parser = RefParser()
+              parser.feed(html.read_text(encoding='utf-8'))
+              for ref in parser.refs:
+                  if not ref or ref.startswith(('#', 'http://', 'https://', 'mailto:', 'tel:', 'data:', 'javascript:')):
+                      continue
+                  clean = urlparse(ref).path
+                  target = (html.parent / clean).resolve()
+                  if not target.exists():
+                      raise SystemExit(f'Broken local reference in {html}: {ref}')
+
+          print('Store structure and local references are valid.')
+          PY
+
+      - name: Check store content
+        run: |
+          grep -q "Perfumes" index.html
+          grep -q "Celulares" index.html
+          grep -q "WHATSAPP" js/store.js
+          grep -q "lm_products_v1" js/store.js
+          grep -q "lm_products_v1" js/admin.js
